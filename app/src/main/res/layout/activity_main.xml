@@ -7,13 +7,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="@drawable/fundo"
     tools:context=".MainActivity"
-    android:background="#b8e994">
+    >
 
     <ImageView
+        android:id="@+id/imagem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/logo_parques"
+        android:src="@drawable/logo_branca"
         android:layout_gravity="center"/>
     <ProgressBar
         android:layout_width="match_parent"

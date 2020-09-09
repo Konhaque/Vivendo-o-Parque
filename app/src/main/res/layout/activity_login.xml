@@ -5,13 +5,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#b8e994"
+    android:background="@drawable/app_log"
     tools:context=".Login">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:src="@drawable/logo_parques"
+        android:src="@drawable/logo_branca"
         android:layout_marginTop="50dp"/>
     <FrameLayout
         android:layout_width="match_parent"
@@ -71,6 +71,18 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/registro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Cadastre-se"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:fontFamily="casual"
+        android:textSize="20dp"
+        android:textStyle="bold"/>
 
 
 

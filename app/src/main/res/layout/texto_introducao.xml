@@ -1,39 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="#b8e994"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center">
+    android:background="@drawable/fundo"
+    android:orientation="vertical">
 
     <ImageView
-        android:layout_width="match_parent"
+        android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@drawable/logo_parques"
+        android:src="@drawable/logo_branca"
+        android:layout_marginTop="20dp"
         android:layout_gravity="center"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Qual parque iremos viver hoje?"
-        android:gravity="center"
-        android:textColor="#000"
-        android:fontFamily="casual"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Passe para o lado ->"
-        android:gravity="center"
-        android:textColor="#000"
-        android:fontFamily="casual"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:layout_marginTop="90dp"
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="350dp"
+        android:baselineAligned="false"
+        android:src="@drawable/app_propraganda"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="40dp"
         />
 
+    <FrameLayout
+        android:layout_width="200dp"
+        android:layout_height="180dp"
+        android:background="@drawable/balao_fala"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="-400dp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="20dp"
+            android:text="Olá! Sejam bem vindos ao Vivendo o Parque. Escolha um dos nossos parques e comece a vive-lo."
+            android:textColor="#000"/>
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginTop="230dp"
+        android:layout_gravity="center">
+        <TextView
+            android:id="@+id/texto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:textSize="20dp"
+            android:text="Passe para o lado ->"
+            android:gravity="center"
+            />
+    </RelativeLayout>
 
 </LinearLayout>

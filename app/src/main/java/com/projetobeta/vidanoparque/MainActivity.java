@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.projetobeta.vidanoparque.generalfunctions.Fullscreen;
 
 public class MainActivity extends AppCompatActivity {
@@ -58,5 +60,6 @@ public class MainActivity extends AppCompatActivity {
             }
         },3000);
     }
+
 
 }
