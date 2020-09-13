@@ -49,9 +49,15 @@
             android:layout_height="wrap_content"
             android:textColor="#fff"
             android:textSize="20dp"
-            android:text="Passe para o lado ->"
+            android:text="Passe para o lado"
             android:gravity="center"
             />
+        <pl.droidsonroids.gif.GifImageView
+            android:layout_width="30dp"
+            android:layout_height="50dp"
+            android:layout_toRightOf="@id/texto"
+            android:src="@drawable/seta"/>
+
     </RelativeLayout>
 
 </LinearLayout>

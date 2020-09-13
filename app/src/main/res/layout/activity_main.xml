@@ -11,15 +11,15 @@
     tools:context=".MainActivity"
     >
 
-    <ImageView
+    <pl.droidsonroids.gif.GifImageView
         android:id="@+id/imagem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/logo_branca"
+        android:src="@drawable/logo_gif"
         android:layout_gravity="center"/>
-    <ProgressBar
+    <!--ProgressBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@android:style/Widget.ProgressBar.Large"/>
+        style="@android:style/Widget.ProgressBar.Large"/!-->
 
 </LinearLayout>

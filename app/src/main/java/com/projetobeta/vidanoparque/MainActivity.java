@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.projetobeta.vidanoparque.generalfunctions.Fullscreen;
 
 public class MainActivity extends AppCompatActivity {
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
             }
         },3000);
     }
+
+
 
 
 }

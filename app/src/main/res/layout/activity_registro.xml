@@ -16,11 +16,12 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/container"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+       >
         <EditText
             android:id="@+id/nome"
             android:layout_width="match_parent"
@@ -42,6 +43,7 @@
             android:layout_marginRight="20dp"
             android:hint="Email"
             android:fontFamily="casual"
+            android:inputType="textEmailAddress"
             android:textColor="#000"
             android:textColorHint="#000"/>
 
@@ -53,6 +55,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:hint="Senha"
+            android:inputType="textPassword"
             android:fontFamily="casual"
             android:textColor="#000"
             android:textColorHint="#000"/>
@@ -65,8 +68,10 @@
             android:layout_marginRight="20dp"
             android:hint="Confirmar Senha"
             android:fontFamily="casual"
+            android:inputType="textPassword"
             android:textColor="#000"
-            android:textColorHint="#000"/>
+            android:textColorHint="#000"
+            android:layout_marginBottom="50dp"/>
     </FrameLayout>
 
     <Button
@@ -75,8 +80,8 @@
         android:layout_height="wrap_content"
         android:text="Cadastrar"
         android:layout_marginTop="-30dp"
-        android:layout_marginLeft="80dp"
-        android:layout_marginRight="80dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
         android:background="@drawable/btn_style"
         android:textColor="#fff"
         />
