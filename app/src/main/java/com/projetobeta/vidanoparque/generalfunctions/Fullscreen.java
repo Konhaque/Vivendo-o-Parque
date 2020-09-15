@@ -6,6 +6,10 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import androidx.fragment.app.Fragment;
+
+import com.projetobeta.vidanoparque.R;
+
 public class Fullscreen {
     public Fullscreen(Activity activity){
         DisplayMetrics displayMetrics = new DisplayMetrics();
