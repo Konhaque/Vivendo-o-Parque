@@ -38,6 +38,7 @@ public class Login extends AppCompatActivity {
         setCadastrar();
         setLoginGoogle();
         setSignInButton();
+        setLogin();
     }
 
     private void iniciarObjetos(){
@@ -91,10 +92,21 @@ public class Login extends AppCompatActivity {
     private void handleSingInResult(Task<GoogleSignInAccount> task){
         try{
             GoogleSignInAccount account = task.getResult(ApiException.class);
-            Toast.makeText(Login.this,account.getEmail(),Toast.LENGTH_LONG).show();
+            startActivity(new Intent(Login.this,Funcionalidades.class));
+            finish();
         }catch (ApiException e){
             Toast.makeText(Login.this,e.getMessage(),Toast.LENGTH_LONG).show();
             e.getMessage();
         }
+    }
+
+    private void setLogin(){
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Login.this,Funcionalidades.class));
+                finish();
+            }
+        });
     }
 }

@@ -15,46 +15,51 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="center">
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="350dp"
+                android:baselineAligned="false"
+                android:src="@drawable/app_propraganda"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="100dp"
+                />
+
             <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="240dp"
+                android:layout_width="250dp"
+                android:layout_height="200dp"
                 android:background="@drawable/balao_fala"
-                android:layout_marginLeft="190dp">
+                android:layout_marginLeft="90dp"
+                android:layout_marginTop="-415dp"
+                >
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Seja bem vindo! Você está visitando o Parque de Pituaçu, Fica à vontade para conhece-lo. Clique nos botões abaixo para ter mais informações sobre ele!"
-                    android:layout_marginTop="30dp"
-                    android:fontFamily="serif"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginTop="20dp"
                     android:textSize="12dp"
-                    android:textColor="#000"
-                    android:layout_marginLeft="35dp"
-                    android:layout_marginRight="35dp"/>
+                    android:fontFamily="serif"
+                    android:gravity="center"
+                    android:text="Seja bem vindo! Você está visitando o Parque de Pituaçu, Fica à vontade para conhece-lo. Clique nos botões abaixo para ter mais informações sobre ele!"
+                    android:textColor="#000"/>
             </FrameLayout>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="350dp"
-                android:layout_marginTop="-100dp"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/app_propraganda"
-                />
             <Button
             android:id="@+id/historia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_style"
-            android:layout_marginTop="-200dp"
-            android:layout_marginLeft="220dp"
+            android:layout_marginLeft="180dp"
             android:layout_marginRight="30dp"
-            android:text="História"
+            android:text="Conhaça"
+            android:layout_marginTop="40dp"
             android:textColor="#fff"/>
-            <Button
+            <!--Button
                 android:id="@+id/fauna"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_style"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="220dp"
+                android:layout_marginLeft="180dp"
                 android:layout_marginRight="30dp"
                 android:text="Fauna"
                 android:textColor="#fff"/>
@@ -64,10 +69,10 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_style"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="220dp"
+                android:layout_marginLeft="180dp"
                 android:layout_marginRight="30dp"
                 android:text="Flora"
-                android:textColor="#fff"/>
+                android:textColor="#fff"/!-->
         </LinearLayout>
     </ScrollView>
 

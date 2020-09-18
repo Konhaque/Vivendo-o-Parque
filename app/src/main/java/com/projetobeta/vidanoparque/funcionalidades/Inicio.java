@@ -1,5 +1,6 @@
 package com.projetobeta.vidanoparque.funcionalidades;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.projetobeta.vidanoparque.R;
+import com.projetobeta.vidanoparque.WebView;
 
 public class Inicio extends Fragment {
 
@@ -28,12 +30,20 @@ public class Inicio extends Fragment {
     @Override
     public void onStart() {
         iniciarObjetos();
+        setHistoria();
         super.onStart();
     }
 
     private void iniciarObjetos(){
         historia = (Button) getActivity().findViewById(R.id.historia);
-        fauna = (Button) getActivity().findViewById(R.id.fauna);
-        flora = (Button) getActivity().findViewById(R.id.flora);
+    }
+
+    private void setHistoria(){
+        historia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), WebView.class));
+            }
+        });
     }
 }
