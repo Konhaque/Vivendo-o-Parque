@@ -5,6 +5,7 @@ public class Usuario {
     private String nome;
     private String email;
     private String senha;
+    private String id_google;
 
     public String getId() {
         return id;
@@ -36,5 +37,13 @@ public class Usuario {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public void setId_google(String id_google) {
+        this.id_google = id_google;
+    }
+
+    public String getId_google() {
+        return id_google;
     }
 }
