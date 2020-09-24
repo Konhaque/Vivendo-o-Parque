@@ -3,7 +3,6 @@ package com.projetobeta.vidanoparque;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,6 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.projetobeta.vidanoparque.bd.Conexao;
 import com.projetobeta.vidanoparque.bd.Usuario;
 import com.projetobeta.vidanoparque.generalfunctions.Fullscreen;
 
@@ -72,42 +72,9 @@ public class Registro extends AppCompatActivity {
             senha.requestFocus();
             dialog.dismiss();
         }else {
-            salvar();
-            //verificaEmail();
+            carregaUsuario();
+            new Conexao(this,dialog).verificaEmail(usuario,email);
         }
-
-    }
-
-    private void salvar(){
-        DatabaseReference db = FirebaseDatabase.getInstance().getReference("Usuarios");
-        String id = db.push().getKey();
-        carregaUsuario();
-        db.child(id).setValue(usuario).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                 startActivity(new Intent(Registro.this,Funcionalidades.class));
-                 finish();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                dialog.dismiss();
-                AlertDialog.Builder builder = new AlertDialog.Builder(Registro.this);
-                builder.setTitle("Algo deu errado!");
-                builder.setMessage(e.getMessage());
-                builder.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                });
-            }
-        }).addOnCanceledListener(new OnCanceledListener() {
-            @Override
-            public void onCanceled() {
-
-            }
-        });
 
     }
 
@@ -133,30 +100,7 @@ public class Registro extends AppCompatActivity {
         usuario.setId_google("");
     }
 
-    private void verificaEmail(){
-        DatabaseReference db = FirebaseDatabase.getInstance().getReference("Usuarios");
-        db.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                boolean existe = false;
-                for(DataSnapshot ds: snapshot.getChildren()){
-                    if(ds.child("email").getValue().toString().equalsIgnoreCase(email.getText().toString())){
-                        dialog.dismiss();
-                        email.setError("Este email já está cadastrado no nosso banco de dados");
-                        email.requestFocus();
-                        existe = true;
-                        break;
-                    }
-                }
-                if(!existe) salvar();
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
 
 
 

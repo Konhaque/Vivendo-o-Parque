@@ -1,10 +1,12 @@
 package com.projetobeta.vidanoparque;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +21,7 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.Api;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.projetobeta.vidanoparque.bd.Conexao;
 import com.projetobeta.vidanoparque.generalfunctions.Fullscreen;
 
 public class Login extends AppCompatActivity {
@@ -28,6 +31,7 @@ public class Login extends AppCompatActivity {
     private Button login;
     private SignInButton signInButton;
     private GoogleSignInClient mGoogleSignInClient;
+    private AlertDialog dialog;
     private final int RC_SING_IN = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,9 +95,14 @@ public class Login extends AppCompatActivity {
 
     private void handleSingInResult(Task<GoogleSignInAccount> task){
         try{
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            LayoutInflater layoutInflater = getLayoutInflater();
+            builder.setView(layoutInflater.inflate(R.layout.activity_main,null));
+            builder.setCancelable(true);
+            dialog = builder.create();
+            dialog.show();
             GoogleSignInAccount account = task.getResult(ApiException.class);
-            startActivity(new Intent(Login.this,Funcionalidades.class));
-            finish();
+            new Conexao(this,dialog).verificaLoginGoogle(account);
         }catch (ApiException e){
             Toast.makeText(Login.this,e.getMessage(),Toast.LENGTH_LONG).show();
             e.getMessage();
@@ -104,8 +113,13 @@ public class Login extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Login.this,Funcionalidades.class));
-                finish();
+                AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
+                LayoutInflater layoutInflater = getLayoutInflater();
+                builder.setView(layoutInflater.inflate(R.layout.activity_main,null));
+                builder.setCancelable(true);
+                dialog = builder.create();
+                dialog.show();
+                new Conexao(Login.this,dialog).login(email.getText().toString(),senha.getText().toString());
             }
         });
     }
