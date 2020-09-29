@@ -3,11 +3,13 @@ package com.projetobeta.vidanoparque;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,6 +34,7 @@ public class Registro extends AppCompatActivity {
     private Button cadastrar;
     private Usuario usuario;
     private AlertDialog dialog;
+    private Toolbar toolbar;
 
 
     @Override
@@ -49,6 +52,9 @@ public class Registro extends AppCompatActivity {
         senha = (EditText) findViewById(R.id.senha);
         conf_Senha = (EditText) findViewById(R.id.confirmar_senha);
         cadastrar = (Button) findViewById(R.id.cadastrar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         usuario = new Usuario();
     }
 
@@ -100,13 +106,14 @@ public class Registro extends AppCompatActivity {
         usuario.setId_google("");
     }
 
-
-
-
-
-
-   
-
-
-
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                startActivity(new Intent(Registro.this,Login.class));
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

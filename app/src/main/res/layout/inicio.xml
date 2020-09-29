@@ -1,12 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@drawable/fundo"
-    >
+    android:background="#fff">
 
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#000"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/logo"
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="30dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vivendo o Parque"
+                android:textColor="#fff"
+                android:layout_marginLeft="130dp"
+                android:layout_marginTop="20dp"
+                android:textSize="18dp"
+                android:fontFamily="serif"/>
+
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -14,65 +39,90 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_gravity="center">
-            <ImageView
-                android:layout_width="150dp"
-                android:layout_height="350dp"
-                android:baselineAligned="false"
-                android:src="@drawable/app_propraganda"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="100dp"
-                />
+            >
+         <TextView
+             android:id="@+id/parque"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:text="Parque de Pituaçu"
+             android:gravity="center"
+             android:layout_marginLeft="40dp"
+             android:layout_marginRight="40dp"
+             android:layout_marginTop="20dp"
+             android:textSize="25dp"
+             android:fontFamily="serif"
+             android:textStyle="bold"
+             android:textColor="#0b4503"/>
 
-            <FrameLayout
-                android:layout_width="250dp"
-                android:layout_height="200dp"
-                android:background="@drawable/balao_fala"
-                android:layout_marginLeft="90dp"
-                android:layout_marginTop="-415dp"
-                >
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="40dp"
-                    android:layout_marginTop="20dp"
-                    android:textSize="12dp"
-                    android:fontFamily="serif"
-                    android:gravity="center"
-                    android:text="Seja bem vindo! Você está visitando o Parque de Pituaçu, Fica à vontade para conhece-lo. Clique nos botões abaixo para ter mais informações sobre ele!"
-                    android:textColor="#000"/>
-            </FrameLayout>
-            <Button
-            android:id="@+id/historia"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_style"
-            android:layout_marginLeft="180dp"
-            android:layout_marginRight="30dp"
-            android:text="Conhaça"
-            android:layout_marginTop="40dp"
-            android:textColor="#fff"/>
-            <!--Button
-                android:id="@+id/fauna"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_style"
+                android:text="Bem-vindo!"
+                android:gravity="center"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="180dp"
-                android:layout_marginRight="30dp"
-                android:text="Fauna"
-                android:textColor="#fff"/>
-            <Button
-                android:id="@+id/flora"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:textSize="20dp"
+                android:textColor="#446d3d"
+                android:fontFamily="serif"/>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_style"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="180dp"
-                android:layout_marginRight="30dp"
-                android:text="Flora"
-                android:textColor="#fff"/!-->
+                android:layout_marginTop="20dp"
+                android:gravity="center">
+                <ImageView
+                    android:id="@+id/faunaeflora"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:src="@drawable/fauna_e_flora"
+                   />
+                <ImageView
+                    android:id="@+id/agenda"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:src="@drawable/agenda"
+                    android:layout_toRightOf="@id/faunaeflora"
+                    android:layout_marginLeft="50dp"/>
+                <ImageView
+                    android:id="@+id/entreterimento"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="130dp"
+                    android:src="@drawable/entreterimento"
+                    />
+                <ImageView
+                    android:id="@+id/visita"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="130dp"
+                    android:src="@drawable/visita"
+                    android:layout_toRightOf="@id/entreterimento"
+                    android:layout_marginLeft="50dp"/>
+                <ImageView
+                    android:id="@+id/sobre"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="260dp"
+                    android:src="@drawable/sobre_o_parque"
+                    />
+                <ImageView
+                    android:id="@+id/fale_conosco"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="260dp"
+                    android:src="@drawable/fale_conosco"
+                    android:layout_toRightOf="@id/sobre"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginBottom="30dp"/>
+
+            </RelativeLayout>
+
+
+
+
+
+
         </LinearLayout>
     </ScrollView>
 

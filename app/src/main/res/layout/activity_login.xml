@@ -8,83 +8,96 @@
     android:background="@drawable/app_log"
     tools:context=".Login">
 
-    <ImageView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:src="@drawable/logo_branca"
-        android:layout_marginTop="50dp"/>
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@drawable/container"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
-        <EditText
-            android:id="@+id/email"
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:fontFamily="casual"
-            android:textColor="#000"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:textColorHint="#000"/>
-          <EditText
-              android:id="@+id/senha"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="70dp"
-              android:hint="Senha"
-              android:textColor="#000"
-              android:textColorHint="#000"
-              android:inputType="textPassword"
-              android:fontFamily="casual"
-              android:layout_marginLeft="20dp"
-              android:layout_marginRight="20dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Esqueci minha senha"
-            android:fontFamily="casual"
-            android:gravity="center"
-            android:layout_marginTop="120dp"/>
-    </FrameLayout>
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:src="@drawable/logo_branca"
+                android:layout_marginTop="50dp"/>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@drawable/container"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+                <EditText
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:fontFamily="casual"
+                    android:textColor="#000"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress"
+                    android:textColorHint="#000"/>
+                <EditText
+                    android:id="@+id/senha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="70dp"
+                    android:hint="Senha"
+                    android:textColor="#000"
+                    android:textColorHint="#000"
+                    android:inputType="textPassword"
+                    android:fontFamily="casual"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Esqueci minha senha"
+                    android:fontFamily="casual"
+                    android:gravity="center"
+                    android:layout_marginTop="120dp"/>
+            </FrameLayout>
 
-    <Button
-        android:id="@+id/logar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/btn_style"
-        android:layout_marginTop="-30dp"
-        android:layout_marginRight="100dp"
-        android:layout_marginLeft="100dp"
-        android:text="Entrar"
-        android:textColor="#fff"
-        android:fontFamily="serif"
-        android:textStyle="bold"/>
+            <Button
+                android:id="@+id/logar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_style"
+                android:layout_marginTop="-30dp"
+                android:layout_marginRight="100dp"
+                android:layout_marginLeft="100dp"
+                android:text="Entrar"
+                android:textColor="#fff"
+                android:fontFamily="serif"
+                android:textStyle="bold"/>
 
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/singinbutton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="20dp"/>
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/singinbutton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="20dp"/>
 
-    <TextView
-        android:id="@+id/registro"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Cadastre-se"
-        android:gravity="center"
-        android:textColor="#fff"
-        android:fontFamily="casual"
-        android:textSize="20dp"
-        android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/registro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="30dp"
+                android:text="Cadastre-se"
+                android:gravity="center"
+                android:textColor="#fff"
+                android:fontFamily="casual"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+
 
 
 

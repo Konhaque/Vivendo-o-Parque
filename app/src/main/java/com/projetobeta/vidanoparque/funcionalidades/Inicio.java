@@ -30,20 +30,12 @@ public class Inicio extends Fragment {
     @Override
     public void onStart() {
         iniciarObjetos();
-        setHistoria();
         super.onStart();
     }
 
     private void iniciarObjetos(){
-        historia = (Button) getActivity().findViewById(R.id.historia);
+        //historia = (Button) getActivity().findViewById(R.id.historia);
     }
 
-    private void setHistoria(){
-        historia.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getActivity(), WebView.class));
-            }
-        });
-    }
+
 }
