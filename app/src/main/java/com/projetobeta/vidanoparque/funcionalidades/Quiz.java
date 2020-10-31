@@ -9,13 +9,16 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.projetobeta.vidanoparque.Play_Quiz;
 import com.projetobeta.vidanoparque.R;
+import com.projetobeta.vidanoparque.bd.Conexao;
 
 public class Quiz extends Fragment {
     private Button jogar;
+    private AlertDialog dialog;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -29,9 +32,20 @@ public class Quiz extends Fragment {
         jogar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), Play_Quiz.class));
+                getQuestoes();
+                //startActivity(new Intent(getActivity(), Play_Quiz.class));
             }
         });
         super.onStart();
+    }
+
+    private void getQuestoes(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        LayoutInflater inflater = getLayoutInflater();
+        builder.setView(inflater.inflate(R.layout.activity_main,null));
+        builder.setCancelable(true);
+        dialog = builder.create();
+        dialog.show();
+        new Conexao(getActivity(),dialog).questoesQuiz();
     }
 }

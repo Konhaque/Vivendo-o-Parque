@@ -6,6 +6,7 @@ public class Usuario {
     private String email;
     private String senha;
     private String id_google;
+    private String foto_perfil;
 
     public String getId() {
         return id;
@@ -45,5 +46,12 @@ public class Usuario {
 
     public String getId_google() {
         return id_google;
+    }
+
+    public void setFoto_perfil(String foto_perfil) {
+        this.foto_perfil = foto_perfil;
+    }
+    public String getFoto_perfil() {
+        return foto_perfil;
     }
 }

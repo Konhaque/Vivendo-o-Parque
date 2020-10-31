@@ -104,6 +104,7 @@ public class Registro extends AppCompatActivity {
         usuario.setEmail(email.getText().toString());
         usuario.setSenha(senha.getText().toString());
         usuario.setId_google("");
+        usuario.setFoto_perfil("");
     }
 
     @Override
