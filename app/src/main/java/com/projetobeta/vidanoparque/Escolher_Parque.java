@@ -37,7 +37,6 @@ public class Escolher_Parque extends AppCompatActivity {
        screens = new ArrayList<>();
        screens.add(new Texto_Introducao());
        screens.add(new Parque_Pituacu());
-       screens.add(new Lagoa_Abaete());
        pager = (ViewPager) findViewById(R.id.vpage);
        adapter = new SlidePager(getSupportFragmentManager(),screens);
     }

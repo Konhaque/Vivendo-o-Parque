@@ -29,6 +29,7 @@ import com.projetobeta.vidanoparque.bd.Conexao;
 import com.projetobeta.vidanoparque.bd.Fauna;
 import com.projetobeta.vidanoparque.bd.Questoes_Quiz;
 import com.projetobeta.vidanoparque.generalfunctions.Fullscreen;
+import com.projetobeta.vidanoparque.generalfunctions.SharedPrefs;
 
 public class Login extends AppCompatActivity {
     private TextView cadastrar;
@@ -51,6 +52,12 @@ public class Login extends AppCompatActivity {
         setSignInButton();
         setLogin();
         //setLogo();
+    }
+
+    @Override
+    protected void onStart() {
+        verificaLogado();
+        super.onStart();
     }
 
     private void iniciarObjetos(){
@@ -182,6 +189,13 @@ public class Login extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void verificaLogado(){
+        if(new SharedPrefs().getSharedPrefs(this,"VivendoParque","Logado") != null){
+            startActivity(new Intent(Login.this,Funcionalidades.class));
+            finish();
+        }
     }
 
 }

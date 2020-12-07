@@ -11,6 +11,7 @@
         android:id="@+id/tb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:theme="@style/ToolbarColoredBackArrow"
         android:background="#000">
         <RelativeLayout
             android:layout_width="match_parent"
@@ -22,46 +23,72 @@
                 android:src="@drawable/logo"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="30dp"/>
-
-            <FrameLayout
-                android:layout_width="70dp"
-                android:layout_height="50dp"
-                android:background="@drawable/btn_style"
-                android:id="@+id/fauna">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Fauna"
-                    android:fontFamily="serif"
-                    android:layout_gravity="center"
-                    android:textColor="#fff"/>
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="70dp"
-                android:layout_height="50dp"
-                android:background="@drawable/btn_style"
-                android:id="@+id/flora"
-                android:layout_toRightOf="@id/fauna"
-                android:layout_marginLeft="5dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Flora"
-                    android:layout_gravity="center"
-                    android:fontFamily="serif"
-                    android:textColor="#fff"/>
-            </FrameLayout>
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+        <FrameLayout
+            android:id="@+id/fauna"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_select">
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:textColor="#fff"
+                android:textSize="18dp"
+                android:layout_marginRight="30dp"
+                android:fontFamily="serif"
+                android:textStyle="bold"
+                android:text="Fauna"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/pata"
+                app:tint="#fff"
+                android:layout_gravity="center"
+                android:layout_marginLeft="40dp"/>
+        </FrameLayout>
+        <FrameLayout
+            android:id="@+id/flora"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/fauna"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/btn_select">
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:textColor="#fff"
+                android:textSize="18dp"
+                android:layout_marginRight="30dp"
+                android:fontFamily="serif"
+                android:textStyle="bold"
+                android:text="Flora"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/folha"
+                app:tint="#fff"
+                android:layout_gravity="center"
+                android:layout_marginLeft="40dp"/>
+        </FrameLayout>
+    </RelativeLayout>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp">
         <LinearLayout
             android:id="@+id/setfaunaeflora"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:orientation="vertical"/>
     </ScrollView>
-
 </LinearLayout>

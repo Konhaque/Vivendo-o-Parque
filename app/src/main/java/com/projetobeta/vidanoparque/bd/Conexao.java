@@ -6,12 +6,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.FragmentActivity;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -40,14 +43,11 @@ public class Conexao {
     private Activity activity;
 
 
-    public Conexao(){
-
-    }
-
     public Conexao(@NonNull Activity activity,AlertDialog dialog){
         this.dialog = dialog;
         this.activity = activity;
     }
+
 
     private void salvar(final Usuario usuario){
         DatabaseReference db = FirebaseDatabase.getInstance().getReference("Usuarios");
@@ -58,8 +58,11 @@ public class Conexao {
                 new Repository(activity).criarPerfil();
                 usuario.setId(id);
                 new Repository(activity).salvarPerfil(usuario);
-                activity.startActivity(new Intent(activity, Funcionalidades.class));
-                activity.finish();
+                new SharedPrefs().setSharedPrefs(activity,"VivendoParque","Logado","Logado");
+                jogouQuiz(id);
+                pegarFauna();
+                //activity.startActivity(new Intent(activity, Funcionalidades.class));
+                //activity.finish();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -124,11 +127,16 @@ public class Conexao {
                             usuario.setEmail(ds.child("email").getValue().toString());
                             usuario.setFoto_perfil(ds.child("foto_perfil").getValue().toString());
                             usuario.setId(ds.getKey());
+                            if(ds.child("endereco").getValue() != null) usuario.setEndereco(ds.child("endereco").getValue().toString());
+                            if(ds.child("escolaridade").getValue() != null) usuario.setFormacao(ds.child("escolaridade").getValue().toString());
+                            if(ds.child("profissao").getValue() != null) usuario.setProfissao(ds.child("profissao").getValue().toString());
                             new Repository(activity).criarPerfil();
                             new Repository(activity).salvarPerfil(usuario);
+                            new SharedPrefs().setSharedPrefs(activity,"VivendoParque","Logado","Logado");
                             jogouQuiz(ds.getKey());
-                            activity.startActivity(new Intent(activity,Funcionalidades.class));
-                            activity.finish();
+                            pegarFauna();
+                            //activity.startActivity(new Intent(activity,Funcionalidades.class));
+                            //activity.finish();
                             existe = true;
                             break;
                         }
@@ -167,11 +175,14 @@ public class Conexao {
                         usuario.setEmail(ds.child("email").getValue().toString());
                         usuario.setFoto_perfil(ds.child("foto_perfil").getValue().toString());
                         usuario.setId(ds.getKey());
+                        if(ds.child("endereco").getValue() != null) usuario.setEndereco(ds.child("endereco").getValue().toString());
+                        if(ds.child("escolaridade").getValue() != null) usuario.setFormacao(ds.child("escolaridade").getValue().toString());
+                        if(ds.child("profissao").getValue() != null) usuario.setProfissao(ds.child("profissao").getValue().toString());
                         jogouQuiz(ds.getKey());
+                        pegarFauna();
                         new Repository(activity).criarPerfil();
                         new Repository(activity).salvarPerfil(usuario);
-                        activity.startActivity(new Intent(activity,Funcionalidades.class));
-                        activity.finish();
+                        new SharedPrefs().setSharedPrefs(activity,"VivendoParque","Logado","Logado");
                         existe = true;
                         break;
                     }
@@ -240,6 +251,8 @@ public class Conexao {
                     quiz.setOp4(ds.child("op4").getValue().toString());
                     quiz.setCorreta(ds.child("correta").getValue().toString());
                     quiz.setExplicacao(ds.child("explicacao").getValue().toString());
+                    if(ds.child("arquivo").getValue() != null) quiz.setArquivo(ds.child("arquivo").getValue().toString());
+                    if(ds.child("tipo").getValue() != null) quiz.setTipo(ds.child("tipo").getValue().toString());
                     new Repository(activity).salvarQuestao(quiz);
                 }
                 dialog.dismiss();
@@ -253,18 +266,29 @@ public class Conexao {
         });
     }
 
-    public void salvarQuizUsuario(Usuario_Quiz usuario_quiz){
+    public void salvarQuizUsuario(final Usuario_Quiz usuario_quiz){
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Usuario_Quiz");
         databaseReference.child(databaseReference.push().getKey()).setValue(usuario_quiz).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 new SharedPrefs().setSharedPrefs(activity,"VivendoParque","Jogou_Quiz","Jogou");
+               adicionarAoRanking(usuario_quiz.getId_Usuario(),usuario_quiz.getPontos());
+            }
+        });
+    }
+
+    public void adicionarAoRanking(String id, int pontos){
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Ranking/"+id);
+        databaseReference.child("pontos_quiz").setValue(pontos).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
                 Intent intent1 = new Intent(activity,Funcionalidades.class);
                 intent1.putExtra("jogou","jogou");
                 activity.startActivity(intent1);
                 dialog.dismiss();
             }
         });
+
     }
 
     private void jogouQuiz(final String idUsuario){
@@ -292,6 +316,82 @@ public class Conexao {
             }
         });
 
+    }
+
+
+    private void pegarFauna(){
+        new Repository(activity).criarFauna();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Fauna");
+        databaseReference.orderByChild("nome_popular").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot ds : snapshot.getChildren()){
+                    Fauna fauna = new Fauna();
+                    fauna.setId(ds.getKey());
+                    fauna.setNome_cientifico(ds.child("nome_cientifico").getValue().toString());
+                    fauna.setNome_popular(ds.child("nome_popular").getValue().toString());
+                    fauna.setDescricao(ds.child("descricao").getValue().toString());
+                    fauna.setImagem(ds.child("imagem").getValue().toString());
+                    new Repository(activity).salvarFauna(fauna);
+                }
+                pegarFlora();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void pegarFlora(){
+        new Repository(activity).criarFlora();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Flora");
+        databaseReference.orderByChild("nome_popular").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot ds: snapshot.getChildren()){
+                    Fauna fauna = new Fauna();
+                    fauna.setId(ds.getKey());
+                    fauna.setNome_cientifico(ds.child("nome_cientifico").getValue().toString());
+                    fauna.setNome_popular(ds.child("nome_popular").getValue().toString());
+                    fauna.setDescricao(ds.child("descricao").getValue().toString());
+                    fauna.setImagem(ds.child("imagem").getValue().toString());
+                    new Repository(activity).salvarFlora(fauna);
+                }
+                activity.startActivity(new Intent(activity,Funcionalidades.class));
+                activity.finish();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void salvarAlteracoesPerfil(final Usuario usuario, final TextView escolaridade, final TextView profissao, final TextView endereco){
+        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Usuarios/"+usuario.getId());
+        reference.child("profissao").setValue(usuario.getProfissao()).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                reference.child("endereco").setValue(usuario.getEndereco()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    reference.child("escolaridade").setValue(usuario.getFormacao()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            new Repository(activity).updateInformacoes(usuario);
+                            escolaridade.setText(usuario.getFormacao());
+                            endereco.setText(usuario.getEndereco());
+                            profissao.setText(usuario.getProfissao());
+                            dialog.dismiss();
+                        }
+                    });
+                    }
+                });
+            }
+        });
     }
 
 

@@ -16,6 +16,7 @@ import com.projetobeta.vidanoparque.funcionalidades.Inicio;
 import com.projetobeta.vidanoparque.funcionalidades.Perfil;
 import com.projetobeta.vidanoparque.funcionalidades.Quiz;
 import com.projetobeta.vidanoparque.funcionalidades.Rede_Social;
+import com.projetobeta.vidanoparque.generalfunctions.AbreTela;
 import com.projetobeta.vidanoparque.generalfunctions.Fullscreen;
 import com.projetobeta.vidanoparque.generalfunctions.SharedPrefs;
 
@@ -27,17 +28,18 @@ public class Funcionalidades extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()){
                 case R.id.inicio:
-                    abretela(new Inicio());
+                    new AbreTela(getSupportFragmentManager(),new Inicio(),R.id.set_Tela);
                     return true;
                 case R.id.quiz:
-                    if(new SharedPrefs().getSharedPrefs(Funcionalidades.this,"VivendoParque","Jogou_Quiz") != null) abretela(new Fim_de_Jogo());
-                    else abretela(new Quiz());
+                    if(new SharedPrefs().getSharedPrefs(Funcionalidades.this,"VivendoParque","Jogou_Quiz") != null)
+                        new AbreTela(getSupportFragmentManager(),new Fim_de_Jogo(),R.id.set_Tela);
+                    else new AbreTela(getSupportFragmentManager(),new Quiz(),R.id.set_Tela);
                     return true;
                 case R.id.rede_social:
-                    abretela(new Rede_Social());
+                    new AbreTela(getSupportFragmentManager(),new Rede_Social(),R.id.set_Tela);
                     return true;
                 case R.id.perfil:
-                    abretela(new Perfil());
+                    new AbreTela(getSupportFragmentManager(),new Perfil(),R.id.set_Tela);
                     return true;
             }
             return false;
@@ -52,11 +54,11 @@ public class Funcionalidades extends AppCompatActivity {
         iniciaObjetos();
     }
 
-    private void abretela(Fragment fragment){
+    /*private void abretela(Fragment fragment){
         getSupportFragmentManager().beginTransaction().setCustomAnimations(
                 android.R.anim.fade_in,android.R.anim.fade_out)
                 .replace(R.id.set_Tela,fragment).commit();
-    }
+    }*/
 
     private void iniciaObjetos(){
         menu = (BottomNavigationView) findViewById(R.id.nav_view);
@@ -64,6 +66,7 @@ public class Funcionalidades extends AppCompatActivity {
         menu.setSelectedItemId(R.id.inicio);
         intent = getIntent();
         if(intent.hasExtra("jogou")) menu.setSelectedItemId(R.id.quiz);
+        if(intent.hasExtra("pub")) menu.setSelectedItemId(R.id.rede_social);
     }
 
 

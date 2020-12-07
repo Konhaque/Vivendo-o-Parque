@@ -48,7 +48,7 @@ public class Fim_de_Jogo extends Fragment {
 
     private void setUsuario(){
         usuario.setText("Parabens "+usuarios.getNome()+"! Você fez "+pontos+" pontos no nosso Quiz");
-        ranking.setText("Você acertou "+acertos+"/2");
+        ranking.setText("Você acertou "+acertos+"/20");
     }
 
 }

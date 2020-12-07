@@ -3,6 +3,8 @@
     package="com.projetobeta.vidanoparque">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -11,7 +13,8 @@
         android:roundIcon="@drawable/icone"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Explicacao"></activity>
+        <activity android:name=".Criar_Publicacao"></activity>
+        <activity android:name=".Explicacao" />
         <activity android:name=".Play_Quiz" />
         <activity android:name=".FaunaeFlora" />
         <activity

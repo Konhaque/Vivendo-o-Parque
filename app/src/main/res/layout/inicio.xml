@@ -55,16 +55,18 @@
              android:textColor="#0b4503"/>
 
             <TextView
+                android:id="@+id/lbl_inicio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Bem-vindo!"
+                android:text="Bem-vindo"
                 android:gravity="center"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:textSize="20dp"
                 android:textColor="#446d3d"
-                android:fontFamily="serif"/>
+                android:textStyle="bold"
+                android:fontFamily="casual"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"

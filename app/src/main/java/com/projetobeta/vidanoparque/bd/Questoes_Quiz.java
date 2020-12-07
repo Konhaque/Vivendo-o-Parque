@@ -9,6 +9,8 @@ public class Questoes_Quiz {
     private String correta;
     private String explicacao;
     private String id;
+    private String tipo;
+    private String arquivo;
 
     public String getPergunta() {
         return pergunta;
@@ -72,5 +74,21 @@ public class Questoes_Quiz {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getArquivo() {
+        return arquivo;
+    }
+
+    public void setArquivo(String arquivo) {
+        this.arquivo = arquivo;
     }
 }

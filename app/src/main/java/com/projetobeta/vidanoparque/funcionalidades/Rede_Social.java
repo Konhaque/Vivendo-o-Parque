@@ -1,44 +1,289 @@
 package com.projetobeta.vidanoparque.funcionalidades;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.MediaController;
+import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.widget.ImageViewCompat;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.auth.api.signin.internal.Storage;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.projetobeta.vidanoparque.Criar_Publicacao;
 import com.projetobeta.vidanoparque.R;
 import com.projetobeta.vidanoparque.bd.Repository;
 import com.projetobeta.vidanoparque.bd.Usuario;
+import com.projetobeta.vidanoparque.generalfunctions.Alerts;
+
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Rede_Social extends Fragment {
     private ImageView foto_Perfil;
     private Usuario usuario;
+    private TextView lblRede;
+    private ImageView rede;
+    private LinearLayout linearLayout;
+    private AlertDialog dialog;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.rede_social,container,false);
-        return viewGroup;
+        return inflater.inflate(R.layout.rede_social,container,false);
     }
 
     @Override
     public void onStart() {
         iniciarObjetos();
         setFoto_Perfil();
+        setLblRede();
+        setRede();
+        getPublicacaoes();
         super.onStart();
     }
 
     private void iniciarObjetos(){
         foto_Perfil = (ImageView) getActivity().findViewById(R.id.foto_perfilRede);
         usuario = new Repository(getContext()).getPerfil();
+        lblRede = (TextView) getActivity().findViewById(R.id.lbl_rede);
+        rede = (ImageView) getActivity().findViewById(R.id.adicionar_publicacao);
+        linearLayout = (LinearLayout) getActivity().findViewById(R.id.publicacoes);
+        linearLayout.removeAllViews();
     }
 
     private void setFoto_Perfil(){
         if (usuario.getFoto_perfil() != null && usuario.getFoto_perfil().length()>0)
             Glide.with(getActivity()).load(usuario.getFoto_perfil()).into(foto_Perfil);
     }
+
+
+    private void criarPublicacao(){
+        startActivity(new Intent(getActivity(), Criar_Publicacao.class));
+    }
+
+    private void setLblRede(){
+        lblRede.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                criarPublicacao();
+            }
+        });
+    }
+
+    private void setRede(){
+        rede.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                criarPublicacao();
+            }
+        });
+    }
+
+    private void getPublicacaoes(){
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Publicacao");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    inserir(dataSnapshot);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void inserir(final DataSnapshot snapshot) {
+        final TextView textView = new TextView(getContext());
+        final TextView nome = new TextView(getContext());
+        CircleImageView ft_perfil = new CircleImageView(getContext());
+        LinearLayout top = new LinearLayout(getContext());
+        Typeface typeface = ResourcesCompat.getFont(getContext(), R.font.montserrat_black);
+        Typeface typeface1 = ResourcesCompat.getFont(getContext(), R.font.nerkoone);
+        final ImageView imagem = new ImageView(getContext());
+        TextView espaco = new TextView(getContext());
+        final TextView likes = new TextView(getContext());
+        LinearLayout novo = new LinearLayout(getContext());
+        ImageView imagem1 = new ImageView(getContext());
+        ImageView compartilhar = new ImageView(getContext());
+        final VideoView videoView = new VideoView(getContext());
+        top.setOrientation(LinearLayout.HORIZONTAL);
+        top.addView(ft_perfil, 90, 90);
+        top.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
+        if(snapshot.child("ftPerfil").getValue() != null && snapshot.child("ftPerfil").getValue().toString().length()>0)
+            Glide.with(getActivity()).load(snapshot.child("ftPerfil").getValue().toString()).into(ft_perfil);
+        else{
+            Glide.with(getActivity()).load(R.drawable.icone_perfil).into(ft_perfil);
+            ft_perfil.setColorFilter(Color.BLACK);
+        }
+        nome.setText(" " + snapshot.child("nome").getValue().toString());
+        nome.setTextSize(15);
+        nome.setPadding(10, 30, 0, 0);
+        nome.setTypeface(typeface);
+        nome.setTextColor(Color.BLACK);
+        top.addView(nome);
+        linearLayout.addView(top);
+        textView.setText(snapshot.child("texto").getValue() + "");
+        textView.setTextSize(25);
+        textView.setPadding(10, 5, 0, 0);
+        textView.setTypeface(typeface1);
+        textView.setTextColor(Color.BLACK);
+        linearLayout.addView(textView);
+        if (snapshot.child("midia").getValue() != null) {
+            if (snapshot.child("tipo").getValue().toString().contains("image")) {
+                linearLayout.setGravity(Gravity.CENTER);
+                Glide.with(getActivity()).load(snapshot.child("midia").getValue().toString()).into(imagem1);
+                linearLayout.addView(imagem1);
+            } else {
+                linearLayout.setGravity(Gravity.CENTER);
+                videoView.setVideoURI(Uri.parse(snapshot.child("midia").getValue().toString()));
+                videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                    @Override
+                    public void onPrepared(MediaPlayer mediaPlayer) {
+                        mediaPlayer.setVolume(0,0);
+                    }
+                });
+                MediaController mediaController = new MediaController(getContext());
+                videoView.setMediaController(mediaController);
+                mediaController.setAnchorView(videoView);
+                videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mediaPlayer) {
+                        videoView.start();
+                    }
+                });
+                linearLayout.addView(videoView, LinearLayout.LayoutParams.MATCH_PARENT, 300);
+                videoView.start();
+            }
+        }
+        Glide.with(getActivity()).load(R.drawable.folha).into(imagem);
+        imagem.setPadding(10, 0, 0, 0);
+        imagem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (imagem.getColorFilter() == null) {
+                    imagem.setColorFilter(Color.parseColor("#82c91e"));
+                    like(snapshot, 1, likes);
+                } else {
+                    imagem.setColorFilter(null);
+                    like(snapshot, 2, likes);
+                }
+            }
+        });
+        compartilhar.setImageDrawable(getActivity().getDrawable(R.drawable.ic_baseline_share_24));
+        compartilhar.setPadding(10, 0, 0, 0);
+        novo.setOrientation(LinearLayout.HORIZONTAL);
+        compartilhar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_SEND);
+                intent.setType("text/html");
+                intent.putExtra(Intent.EXTRA_TEXT, "Você Recebeu uma publicação do app Vivendo o Parque :)!"+ "\n"+"\n"+
+                        snapshot.child("midia").getValue().toString());
+                startActivity(Intent.createChooser(intent, null));
+            }
+        });
+        if (snapshot.child("likes").getValue() != null) {
+            likes.setText(snapshot.child("likes").getValue().toString());
+            likes.setTextColor(Color.BLACK);
+            likes.setTextSize(10);
+        } else likes.setVisibility(View.GONE);
+        novo.addView(imagem, 40, 40);
+        novo.addView(likes);
+        novo.addView(compartilhar, 40, 40);
+        linearLayout.addView(novo);
+        espaco.setText("");
+        linearLayout.addView(espaco);
+    }
+
+
+    private void like(DataSnapshot snapshot, int caso, final TextView textView){
+        DatabaseReference databaseReference;
+        int like = 0;
+        if(snapshot.child("likes").getValue() != null) like = Integer.parseInt(snapshot.child("likes").getValue().toString());
+        switch (caso){
+            case 1:
+                like++;
+                 databaseReference = FirebaseDatabase.getInstance().getReference("Publicacao/"+snapshot.getKey());
+                final int llike = like;
+                databaseReference.child("likes").setValue(like).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        textView.setText(llike+"");
+                        if(llike > 0) textView.setVisibility(View.VISIBLE);
+                    }
+                });
+                break;
+            case 2:
+                like--;
+                databaseReference = FirebaseDatabase.getInstance().getReference("Publicacao/"+snapshot.getKey());
+                final int llk = like;
+                databaseReference.child("likes").setValue(like).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        textView.setText(llk+"");
+                        if(llk <= 0) textView.setVisibility(View.GONE);
+                    }
+                });
+               break;
+            default: break;
+        }
+    }
+
+
+
+
+
 }

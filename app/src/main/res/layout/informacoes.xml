@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/editar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_baseline_edit_24"
+            app:tint="#000" />
+       <ImageView
+           android:id="@+id/salvar"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:src="@drawable/ic_baseline_save_24"
+           android:layout_marginRight="30dp"
+           android:layout_alignParentRight="true"
+           android:visibility="gone"
+           app:tint="#000"/>
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/profissao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/profissao" />
+
+        <TextView
+            android:id="@+id/txtprofissao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:fontFamily="casual"
+            android:text="Profissão..."
+            android:textColor="#000" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:id="@+id/editprofissao"
+            android:visibility="gone"
+            android:textColor="#000"/>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:id="@+id/escolaridade">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/escolaridade"/>
+        <TextView
+            android:id="@+id/txtescolaridade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Escolaridade..."
+            android:layout_marginLeft="40dp"
+            android:textColor="#000"
+            android:fontFamily="casual"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:id="@+id/editescolaridade"
+            android:visibility="gone"
+            android:textColor="#000"/>
+    </FrameLayout>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/endereco">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/endereco"/>
+        <TextView
+            android:id="@+id/txtendereco"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mora em..."
+            android:layout_marginLeft="40dp"
+            android:textColor="#000"
+            android:fontFamily="casual"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:id="@+id/editendereco"
+            android:visibility="gone"
+            android:textColor="#000"/>
+    </FrameLayout>
+
+
+
+</LinearLayout>

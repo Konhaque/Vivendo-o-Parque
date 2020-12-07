@@ -5,6 +5,10 @@ public class Usuario {
     private String nome;
     private String email;
     private String senha;
+    private String endereco;
+    private String formacao;
+    private String profissao;
+    private Selos selos;
     private String id_google;
     private String foto_perfil;
 
@@ -51,7 +55,40 @@ public class Usuario {
     public void setFoto_perfil(String foto_perfil) {
         this.foto_perfil = foto_perfil;
     }
+
     public String getFoto_perfil() {
         return foto_perfil;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public Selos getSelos() {
+        return selos;
+    }
+
+    public void setSelos(Selos selos) {
+        this.selos = selos;
+    }
+
+    public String getFormacao() {
+        return formacao;
+    }
+
+    public void setFormacao(String formacao) {
+        this.formacao = formacao;
+    }
+
+    public String getProfissao() {
+        return profissao;
+    }
+
+    public void setProfissao(String profissao) {
+        this.profissao = profissao;
     }
 }

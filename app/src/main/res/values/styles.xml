@@ -12,5 +12,9 @@
         <item name="android:windowCloseOnTouchOutside">true</item>
     </style>
 
+    <style name="ToolbarColoredBackArrow" parent="AppTheme">
+        <item name="android:textColorSecondary">@color/colorPrimary</item>
+    </style>
+
 
 </resources>

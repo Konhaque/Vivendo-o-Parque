@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".Criar_Publicacao">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:theme="@style/ToolbarColoredBackArrow"
+        android:background="#000">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/logo"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="30dp"/>
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <EditText
+        android:id="@+id/mensagem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Digite algo"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:maxLength="250"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:textColorHint="#000"
+        android:fontFamily="serif"
+        android:textColor="#000"
+        android:inputType="text"
+        />
+
+    <TextView
+        android:id="@+id/addMidia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColor="#000"
+        android:layout_marginLeft="30dp"
+        android:text="Adicionar Mídia +"/>
+    <ImageView
+        android:id="@+id/imagem"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"/>
+    <Button
+        android:id="@+id/publicar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_style"
+        android:layout_marginTop="10dp"
+        android:textColor="#fff"
+        android:fontFamily="casual"
+        android:textStyle="bold"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:text="Publicar"/>
+
+</LinearLayout>

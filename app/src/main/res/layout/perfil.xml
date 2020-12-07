@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_height="match_parent">
 
@@ -29,6 +29,15 @@
                 android:layout_toRightOf="@id/logo"
                 android:textSize="18dp"
                 android:fontFamily="serif"/>
+            <ImageView
+                android:id="@+id/sair"
+                android:layout_width="50dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_baseline_exit_to_app_24"
+                app:tint="#fff"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"/>
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
@@ -52,26 +61,83 @@
                 android:layout_height="wrap_content"
                 android:text="Nome"
                 android:gravity="center"
-                android:layout_marginTop="20dp"
                 android:fontFamily="serif"
                 android:textColor="#000"
                 android:textStyle="bold"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"/>
-            <TextView
-                android:id="@+id/email"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Email"
-                android:gravity="center"
-                android:layout_marginTop="10dp"
-                android:fontFamily="serif"
-                android:textColor="#000"
-                android:textStyle="bold"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginBottom="20dp"/>
+                android:layout_marginTop="20dp"
+                android:gravity="center">
+                <FrameLayout
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/informacoes">
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/informacoes"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Informações"
+                        android:layout_marginTop="50dp"
+                        android:textColor="#000"
+                        android:fontFamily="casual"/>
+                </FrameLayout>
 
+                <FrameLayout
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/midia"
+                    android:layout_toRightOf="@id/informacoes"
+                    android:layout_marginLeft="20dp">
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/midia"
+                        android:layout_gravity="center"
+                       />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Mídia"
+                        android:layout_marginTop="50dp"
+                        android:gravity="center"
+                        android:textColor="#000"
+                        android:fontFamily="casual"/>
+                </FrameLayout>
+                <FrameLayout
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/conquistas"
+                    android:layout_toRightOf="@id/midia"
+                    android:layout_marginLeft="20dp">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/conquistas"
+                        android:layout_gravity="center"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Conquistas"
+                        android:layout_marginTop="50dp"
+                        android:gravity="center"
+                        android:textColor="#000"
+                        android:fontFamily="casual"/>
+                </FrameLayout>
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                android:id="@+id/containerperfil"/>
         </LinearLayout>
     </ScrollView>
 

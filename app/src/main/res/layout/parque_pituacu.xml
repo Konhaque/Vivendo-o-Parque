@@ -3,26 +3,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/parque_pitucu"
+    android:background="#8FBC8F"
     android:gravity="center"
     android:layout_height="match_parent">
 
-    <TextView
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Parque Pituaçu"
-        android:gravity="center"
-        android:textColor="#fff"
-        android:textSize="30dp"
-        android:fontFamily="casual"
-        android:layout_marginTop="50dp"
-        android:textStyle="bold"/>
+        android:layout_height="200dp"
+        android:src="@drawable/logo_parque" />
+
     <Button
         android:id="@+id/btn_parquepituacu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Vamos!"
+        android:textColor="#fff"
         android:background="@drawable/btn_style"
+        android:layout_marginTop="30dp"
         android:layout_marginLeft="80dp"
         android:layout_marginRight="80dp"
         android:fontFamily="serif"

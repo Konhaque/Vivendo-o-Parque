@@ -59,7 +59,7 @@ public class Explicacao extends AppCompatActivity {
             abrirDialog(R.layout.acertou);
             lbl.setText("Você Acertou!");
             Glide.with(this).load(R.drawable.macaco_joinha).into(macaco);
-            pontos+= 10;
+            pontos+= 20;
             acertos+=1;
             new Repository(this).updatePontos(pontos,acertos);
         }
@@ -76,7 +76,7 @@ public class Explicacao extends AppCompatActivity {
         confirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(intent.getIntExtra("qr",0) == 2) {
+                if(intent.getIntExtra("qr",0) == 20) {
                     usuario_quiz.setAcertos(acertos);
                     usuario_quiz.setPontos(pontos);
                     usuario_quiz.setId_Usuario(new Repository(Explicacao.this).getIdUsuario());
