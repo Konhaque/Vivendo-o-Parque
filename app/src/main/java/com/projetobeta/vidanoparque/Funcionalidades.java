@@ -2,11 +2,15 @@ package com.projetobeta.vidanoparque;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -20,7 +24,11 @@ import com.projetobeta.vidanoparque.generalfunctions.AbreTela;
 import com.projetobeta.vidanoparque.generalfunctions.Fullscreen;
 import com.projetobeta.vidanoparque.generalfunctions.SharedPrefs;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Funcionalidades extends AppCompatActivity {
+    public static final int CODIGO_PERMISSOES_REQUERIDAS = 1;
     private Intent intent;
     private BottomNavigationView menu;
     private BottomNavigationView.OnNavigationItemSelectedListener itemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -52,6 +60,7 @@ public class Funcionalidades extends AppCompatActivity {
         new Fullscreen(this);
         setContentView(R.layout.activity_funcionalidades);
         iniciaObjetos();
+        verificarPermissoes();
     }
 
     /*private void abretela(Fragment fragment){
@@ -67,6 +76,19 @@ public class Funcionalidades extends AppCompatActivity {
         intent = getIntent();
         if(intent.hasExtra("jogou")) menu.setSelectedItemId(R.id.quiz);
         if(intent.hasExtra("pub")) menu.setSelectedItemId(R.id.rede_social);
+    }
+
+    public void verificarPermissoes(){
+        if(ContextCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ){
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},CODIGO_PERMISSOES_REQUERIDAS);
+        }
+
+        if(ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},CODIGO_PERMISSOES_REQUERIDAS);
+        }
+
     }
 
 

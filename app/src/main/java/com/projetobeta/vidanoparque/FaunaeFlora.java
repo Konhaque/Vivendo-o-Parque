@@ -1,6 +1,7 @@
 package com.projetobeta.vidanoparque;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -8,6 +9,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -92,7 +94,7 @@ public class FaunaeFlora extends AppCompatActivity {
     }
 
 
-    private void setLinearLayout(List<Fauna> lista){
+    private void setLinearLayout(final List<Fauna> lista){
         linearLayout.removeAllViews();
         for(int i = 0; i<lista.size(); i++) {
             LinearLayout linearLayout1 = new LinearLayout(this);
@@ -110,6 +112,13 @@ public class FaunaeFlora extends AppCompatActivity {
             linearLayout1.setLayoutParams(params);
             linearLayout1.setOrientation(LinearLayout.VERTICAL);
             linearLayout1.setBackground(getDrawable(R.drawable.container_ff));
+            final  int ii = i;
+            linearLayout1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ampliar(lista.get(ii));
+                }
+            });
             linearLayout1.setPadding(0,20,0,0);
             imageView.setPadding(10, 10, 10, 10);
             Glide.with(this).load(lista.get(i).getImagem()).into(imageView);
@@ -139,4 +148,24 @@ public class FaunaeFlora extends AppCompatActivity {
             linearLayout.addView(linearLayout1);
         }
     }
+
+    private void ampliar(Fauna fauna){
+        AlertDialog dialog;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater =  getLayoutInflater();
+        View view = inflater.inflate(R.layout.ampliar,null);
+        ImageView imageView = view.findViewById(R.id.imagemampliar);
+        TextView nomeCientifico = view.findViewById(R.id.textNomecientifico);
+        TextView nomePopular = view.findViewById(R.id.textNomePopular);
+        TextView descricao = view.findViewById(R.id.textDescricao);
+        Glide.with(this).load(fauna.getImagem()).into(imageView);
+        nomeCientifico.setText("Nome Cientifico: "+fauna.getNome_cientifico());
+        nomePopular.setText("Nome Popular: "+fauna.getNome_popular());
+        descricao.setText(fauna.getDescricao());
+        builder.setView(view);
+        builder.setCancelable(true);
+        dialog = builder.create();
+        dialog.show();
+    }
+
 }

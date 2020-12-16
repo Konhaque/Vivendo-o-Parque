@@ -28,7 +28,7 @@ public class Inicio extends Fragment {
     private ImageView faunaeflora;
     private ImageView agendaCultural;
     private TextView lblInicio;
-    private ImageView fale_conosco;
+    //private ImageView fale_conosco;
 
     @Nullable
     @Override
@@ -45,7 +45,7 @@ public class Inicio extends Fragment {
         setSobre();
         setVisita();
         setFaunaeflora();
-        setFale_conosco();
+        //setFale_conosco();
         setAgendaCultural();
         super.onStart();
     }
@@ -54,7 +54,7 @@ public class Inicio extends Fragment {
         sobre = (ImageView) getActivity().findViewById(R.id.sobre);
         visita = (ImageView) getActivity().findViewById(R.id.visita);
         faunaeflora = (ImageView) getActivity().findViewById(R.id.faunaeflora);
-        fale_conosco = (ImageView) getActivity().findViewById(R.id.fale_conosco);
+        //fale_conosco = (ImageView) getActivity().findViewById(R.id.fale_conosco);
         agendaCultural = (ImageView) getActivity().findViewById(R.id.agenda);
         lblInicio = (TextView) getActivity().findViewById(R.id.lbl_inicio);
     }
@@ -78,14 +78,14 @@ public class Inicio extends Fragment {
         });
     }
 
-    private void setFale_conosco(){
+    /*private void setFale_conosco(){
         fale_conosco.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 enviarEmail();
             }
         });
-    }
+    }*/
 
     private void setFaunaeflora(){
         faunaeflora.setOnClickListener(new View.OnClickListener() {

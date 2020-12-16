@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -54,11 +55,15 @@ import com.projetobeta.vidanoparque.bd.Usuario;
 import com.projetobeta.vidanoparque.generalfunctions.Alerts;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -73,6 +78,7 @@ public class Rede_Social extends Fragment {
     private ImageView rede;
     private LinearLayout linearLayout;
     private AlertDialog dialog;
+    private Bitmap bitmap;
 
     @Nullable
     @Override
@@ -227,12 +233,7 @@ public class Rede_Social extends Fragment {
         compartilhar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_SEND);
-                intent.setType("text/html");
-                intent.putExtra(Intent.EXTRA_TEXT, "Você Recebeu uma publicação do app Vivendo o Parque :)!"+ "\n"+"\n"+
-                        snapshot.child("midia").getValue().toString());
-                startActivity(Intent.createChooser(intent, null));
+                compartilhar(snapshot.getKey(),snapshot.child("tipo").getValue().toString());
             }
         });
         if (snapshot.child("likes").getValue() != null) {
@@ -240,9 +241,9 @@ public class Rede_Social extends Fragment {
             likes.setTextColor(Color.BLACK);
             likes.setTextSize(10);
         } else likes.setVisibility(View.GONE);
-        novo.addView(imagem, 40, 40);
+        novo.addView(imagem, 60, 60);
         novo.addView(likes);
-        novo.addView(compartilhar, 40, 40);
+        novo.addView(compartilhar, 60, 60);
         linearLayout.addView(novo);
         espaco.setText("");
         linearLayout.addView(espaco);
@@ -283,7 +284,26 @@ public class Rede_Social extends Fragment {
     }
 
 
-
-
+    private void compartilhar(String url, final String tipo){
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference("Publicacao/");
+        File file = null;
+        if(tipo.contains("jpeg"))  file = new File(Environment.getExternalStorageDirectory(), "forEmail.JPEG");
+        if (tipo.contains("png")) file = new File(Environment.getExternalStorageDirectory(), "forEmail.PNG");
+        if(tipo.contains("mp4")) file = new File(Environment.getExternalStorageDirectory(), "forEmail.MP4");
+        final File finalFile = file;
+        storageReference.child(url).getFile(finalFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(finalFile));
+                if(tipo.contains("image")) intent.setType("image/*");
+                if(tipo.contains("video")) intent.setType("video/*");
+                intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                startActivity(Intent.createChooser(intent,null));
+            }
+        });
+    }
 
 }

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="#fff">
 
@@ -29,7 +30,6 @@
                 android:layout_toRightOf="@id/logo"
                 android:textSize="18dp"
                 android:fontFamily="serif"/>
-
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
     <ScrollView
@@ -74,18 +74,28 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center">
                 <ImageView
+                    android:id="@+id/jogos"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:src="@drawable/jogos"/>
+                <ImageView
                     android:id="@+id/faunaeflora"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
+                    android:layout_toRightOf="@+id/jogos"
                     android:src="@drawable/fauna_e_flora"
+                    android:layout_marginLeft="50dp"
                    />
                 <ImageView
                     android:id="@+id/agenda"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
                     android:src="@drawable/agenda"
-                    android:layout_toRightOf="@id/faunaeflora"
-                    android:layout_marginLeft="50dp"/>
+                    android:layout_marginTop="260dp"
+                    android:layout_toRightOf="@id/sobre"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginBottom="30dp"
+                    />
                 <ImageView
                     android:id="@+id/entreterimento"
                     android:layout_width="120dp"
@@ -108,7 +118,7 @@
                     android:layout_marginTop="260dp"
                     android:src="@drawable/sobre_o_parque"
                     />
-                <ImageView
+                <!--ImageView
                     android:id="@+id/fale_conosco"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
@@ -116,7 +126,7 @@
                     android:src="@drawable/fale_conosco"
                     android:layout_toRightOf="@id/sobre"
                     android:layout_marginLeft="50dp"
-                    android:layout_marginBottom="30dp"/>
+                    android:layout_marginBottom="30dp"/!-->
 
             </RelativeLayout>
 

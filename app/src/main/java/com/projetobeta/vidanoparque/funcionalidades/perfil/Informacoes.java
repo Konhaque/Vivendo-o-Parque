@@ -26,6 +26,7 @@ public class Informacoes extends Fragment {
     private TextView profissao;
     private TextView formacao;
     private TextView endereco;
+    private TextView email;
     private EditText editProfissao;
     private EditText editFormacao;
     private EditText editEndereco;
@@ -52,6 +53,7 @@ public class Informacoes extends Fragment {
         profissao = (TextView) getActivity().findViewById(R.id.txtprofissao);
         formacao = (TextView) getActivity().findViewById(R.id.txtescolaridade);
         endereco = (TextView) getActivity().findViewById(R.id.txtendereco);
+        email = (TextView) getActivity().findViewById(R.id.email);
         editEndereco = (EditText) getActivity().findViewById(R.id.editendereco);
         editProfissao = (EditText) getActivity().findViewById(R.id.editprofissao);
         editFormacao = (EditText) getActivity().findViewById(R.id.editescolaridade);
@@ -83,6 +85,7 @@ public class Informacoes extends Fragment {
 
     private void verficarinformacoes(){
         Usuario usuario = new Repository(getContext()).getPerfil();
+        email.setText(usuario.getEmail());
         editFormacao.setVisibility(View.GONE);
         editEndereco.setVisibility(View.GONE);
         editProfissao.setVisibility(View.GONE);

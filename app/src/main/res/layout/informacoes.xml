@@ -31,9 +31,33 @@
     </RelativeLayout>
 
     <FrameLayout
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="10dp"
+        app:tint="#82c91e"
+        android:src="@drawable/ic_baseline_email_24" />
+
+    <TextView
+        android:id="@+id/txtemail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:fontFamily="casual"
+        android:text="Email..."
+        android:textColor="#000" />
+    </FrameLayout>
+
+    <FrameLayout
         android:id="@+id/profissao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         >
 
         <ImageView

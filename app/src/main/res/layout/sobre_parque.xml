@@ -65,6 +65,7 @@
                 android:fontFamily="serif"
                 android:text="Em 04 de setembro de 1973 foi criado o Parque Metropolitano de Pituaçu através do Decreto Estadual de n° 23.666, à época com 660 hectares de área que, por muito tempo salvaguardou uma das maiores reservas ecológicas da cidade. Hoje abrange uma área preservada de pouco menos de 392 hectares e continua se destacando pela sua inegável beleza, riqueza de biodiversidade tendo catalogada uma grande pluralidade de fauna com presença de mamíferos, répteis, anfíbios e peixes, inclusive espécies ameaçadas e, na flora com árvores, flores e plantas medicinais"
                 android:textColor="#000"
+                android:gravity="center_horizontal"
                 android:textSize="18dp" />
             <TextView
                 android:layout_width="match_parent"
@@ -73,6 +74,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:fontFamily="serif"
+                android:gravity="center_horizontal"
                 android:text="O Parque abriga a maior lagoa da área metropolitana de Salvador, com um espelho d'água de 200 mil metros quadrados de área, formada artificialmente em 1906 pela construção da barragem de Pituaçu realizada pelo engenheiro baiano Theodoro Sampaio. Ao longo do tempo a lagoa passou por vasto processo de degradação, o que obrigou a suspensão, em 2002, do uso de suas águas para o abastecimento de Salvador. Hoje, a lagoa é um dos principais espaços públicos de lazer da cidade, proporcionando lindas paisagens ao decorrer do seu percurso de trilha/ciclovia através de sua extensão. Além da ciclovia de 15 km², o parque também dispõe de 1 píer, 2 parques infantis, 1 anfiteatro, 1 pista de skate/patinação, 2 quadras poliesportivas, 1 restaurante, banheiros, 2 quiosques, bebedouros, 1 Centro Cultural Theodoro Sampaio (antiga lavanderia recém-reformada), 2 estacionamentos e o Parque das Esculturas do artista plástico Mário Cravo que, segundo o próprio artista dizia em vida, oferece uma experiência de integração arte-natureza."
                 android:textColor="#000"
                 android:textSize="18dp"/>
@@ -83,6 +85,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="20dp"
+                android:gravity="center_horizontal"
                 android:fontFamily="serif"
                 android:text="Com bioma remanescente da Mata Atlântica, Pituaçu é um dos mais belos parques ecológicos brasileiros situados em área urbana, está localizado em Pituaçu, bairro em constante processo de expansão imobiliária, próximo à orla marítima e de importantes instituições de ensino em nossa cidade. Todos os dramas de uma vida dinâmica acabam impactando e ameaçando a vida e a abrangência do parque, fragilizado por frequentes reduções de sua poligonal. Atualmente Pituaçu é uma região que vem sofrendo considerável adensamento urbanístico que altera sua paisagem natural e sua área original. Faz-se necessário frear a forte expansão imobiliária que avança sobre as áreas do Parque, que ainda se mantém como excelente opção para quem procura lazer e contato com a natureza, com relativa segurança devido as constantes rondas policiais. Seu funcionamento é de segunda a domingo, das 08h às 18h."
                 android:textColor="#000"

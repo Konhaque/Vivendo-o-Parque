@@ -6,10 +6,11 @@ import android.content.Context;
 import android.view.LayoutInflater;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 
 import com.projetobeta.vidanoparque.R;
 
-public class Alerts {
+public class Alerts extends DialogFragment {
     private AlertDialog dialog;
 
     public Alerts(@NonNull AlertDialog dialog){
@@ -24,5 +25,6 @@ public class Alerts {
         dialog = builder.create();
         dialog.show();
     }
+
 
 }
