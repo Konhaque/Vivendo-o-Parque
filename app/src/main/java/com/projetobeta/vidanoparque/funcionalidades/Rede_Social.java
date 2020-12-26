@@ -67,6 +67,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -134,13 +135,19 @@ public class Rede_Social extends Fragment {
     }
 
     private void getPublicacaoes(){
+        final List<DataSnapshot> dataSnapshots = new ArrayList<>();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Publicacao");
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    inserir(dataSnapshot);
+                    dataSnapshots.add(dataSnapshot);
                 }
+                Collections.reverse(dataSnapshots);
+                for(int i = 0; i<dataSnapshots.size();i++){
+                    inserir(dataSnapshots.get(i));
+                }
+
             }
 
             @Override
@@ -173,6 +180,12 @@ public class Rede_Social extends Fragment {
             Glide.with(getActivity()).load(R.drawable.icone_perfil).into(ft_perfil);
             ft_perfil.setColorFilter(Color.BLACK);
         }
+        ft_perfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                informacoesUser(snapshot);
+            }
+        });
         nome.setText(" " + snapshot.child("nome").getValue().toString());
         nome.setTextSize(15);
         nome.setPadding(10, 30, 0, 0);
@@ -236,11 +249,9 @@ public class Rede_Social extends Fragment {
                 compartilhar(snapshot.getKey(),snapshot.child("tipo").getValue().toString());
             }
         });
-        if (snapshot.child("likes").getValue() != null) {
-            likes.setText(snapshot.child("likes").getValue().toString());
-            likes.setTextColor(Color.BLACK);
-            likes.setTextSize(10);
-        } else likes.setVisibility(View.GONE);
+        if (snapshot.child("likes").child("qntLikes").getValue() != null
+                && Integer.parseInt(snapshot.child("likes").child("qntLikes").getValue().toString())>0) procuraUsuariosLike(snapshot,likes,imagem);
+        else likes.setVisibility(View.GONE);
         novo.addView(imagem, 60, 60);
         novo.addView(likes);
         novo.addView(compartilhar, 60, 60);
@@ -250,36 +261,83 @@ public class Rede_Social extends Fragment {
     }
 
 
-    private void like(DataSnapshot snapshot, int caso, final TextView textView){
-        DatabaseReference databaseReference;
-        int like = 0;
-        if(snapshot.child("likes").getValue() != null) like = Integer.parseInt(snapshot.child("likes").getValue().toString());
-        switch (caso){
-            case 1:
-                like++;
-                 databaseReference = FirebaseDatabase.getInstance().getReference("Publicacao/"+snapshot.getKey());
-                final int llike = like;
-                databaseReference.child("likes").setValue(like).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        textView.setText(llike+"");
-                        if(llike > 0) textView.setVisibility(View.VISIBLE);
-                    }
-                });
-                break;
-            case 2:
-                like--;
-                databaseReference = FirebaseDatabase.getInstance().getReference("Publicacao/"+snapshot.getKey());
-                final int llk = like;
-                databaseReference.child("likes").setValue(like).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        textView.setText(llk+"");
-                        if(llk <= 0) textView.setVisibility(View.GONE);
-                    }
-                });
+    private void like(final DataSnapshot sp, final int caso, final TextView textView){
+        DatabaseReference getLike = FirebaseDatabase.getInstance().getReference("Publicacao/"+sp.getKey());
+        getLike.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int like = 0;
+                final DatabaseReference databaseReference;
+                if(snapshot.child("likes").child("qntLikes").getValue() != null)
+                    like = Integer.parseInt(snapshot.child("likes").child("qntLikes").getValue().toString());
+                switch (caso){
+                    case 1:
+                        like++;
+                        databaseReference = FirebaseDatabase.getInstance().getReference("Publicacao/"+sp.getKey());
+                        final int llike = like;
+                        databaseReference.child("likes").child("qntLikes").setValue(like).
+                                addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        databaseReference.child("likes").child("usuarios").child(llike+"")
+                                                .setValue(new Repository(getContext()).getIdUsuario());
+                                        textView.setText(llike+"");
+                                        if(llike > 0) textView.setVisibility(View.VISIBLE);
+                                    }
+                                });
+                        break;
+                    case 2:
+                        like--;
+                        databaseReference = FirebaseDatabase.getInstance().getReference("Publicacao/"+snapshot.getKey());
+                        final int llk = like;
+                        databaseReference.child("likes").child("qntLikes").setValue(like)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                textView.setText(llk+"");
+                                if(llk <= 0) textView.setVisibility(View.GONE);
+                                removeLike(sp,databaseReference);
+                            }
+                        });
+                        break;
+                    default: break;
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+
+    private void procuraUsuariosLike(DataSnapshot snapshot, TextView textView, ImageView imageView){
+        for(int i = 1; i<= Integer.parseInt(snapshot.child("likes").child("qntLikes").getValue().toString());i++){
+            Log.i("kfgkgmfkf",snapshot.child("likes").child("usuarios").child(i+"").getValue().toString());
+            Log.i("kfgkgmfkf",new Repository(getContext()).getIdUsuario());
+            if(snapshot.child("likes").child("usuarios").child(i+"").getValue() != null){
+                if(snapshot.child("likes").child("usuarios").child(i+"").getValue().toString().
+                        equalsIgnoreCase(new Repository(getContext()).getIdUsuario())){
+                    imageView.setColorFilter(Color.parseColor("#82c91e"));
+                    break;
+                }
+            }
+        }
+        textView.setText(snapshot.child("likes").child("qntLikes").getValue().toString());
+        textView.setTextColor(Color.BLACK);
+        textView.setTextSize(10);
+    }
+
+    private void removeLike(DataSnapshot snapshot, DatabaseReference databaseReference){
+        for(int i = 1; i<= Integer.parseInt(snapshot.child("likes").child("qntLikes").getValue().toString());i++){
+            if(snapshot.child("likes").child("usuarios").child(i+"").getValue().toString().
+                    equals(new Repository(getContext()).getIdUsuario())){
+               databaseReference.child("likes").child("usuarios").child(i+"").removeValue();
                break;
-            default: break;
+            }
         }
     }
 
@@ -291,19 +349,57 @@ public class Rede_Social extends Fragment {
         if (tipo.contains("png")) file = new File(Environment.getExternalStorageDirectory(), "forEmail.PNG");
         if(tipo.contains("mp4")) file = new File(Environment.getExternalStorageDirectory(), "forEmail.MP4");
         final File finalFile = file;
-        storageReference.child(url).getFile(finalFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+        if(url != null) {
+            storageReference.child(url).getFile(finalFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_SEND);
+                    intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(finalFile));
+                    if (tipo.contains("image")) intent.setType("image/*");
+                    if (tipo.contains("video")) intent.setType("video/*");
+                    intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                    intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    startActivity(Intent.createChooser(intent, null));
+                }
+            });
+        }
+    }
+
+    private void informacoesUser(DataSnapshot sp){
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().
+                getReference("Usuarios/"+sp.child("id_usuario").getValue().toString());
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_SEND);
-                intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(finalFile));
-                if(tipo.contains("image")) intent.setType("image/*");
-                if(tipo.contains("video")) intent.setType("video/*");
-                intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                startActivity(Intent.createChooser(intent,null));
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                AlertDialog dialog;
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                LayoutInflater inflater = getActivity().getLayoutInflater();
+                View view = inflater.inflate(R.layout.informacoes_user,null);
+                ImageView imageView = view.findViewById(R.id.perfil);
+                TextView nome = view.findViewById(R.id.nome);
+                TextView email = view.findViewById(R.id.email);
+                if(snapshot.child("foto_perfil").getValue() != null && snapshot.child("foto_perfil").getValue().toString().length()>0)
+                    Glide.with(getActivity()).load(snapshot.child("foto_perfil").getValue().toString()).into(imageView);
+                else{
+                    Glide.with(getActivity()).load(R.drawable.icone_perfil).into(imageView);
+                    imageView.setColorFilter(Color.BLACK);
+                }
+                nome.setText(snapshot.child("nome").getValue().toString());
+                email.setText(snapshot.child("email").getValue().toString());
+                builder.setView(view);
+                dialog = builder.create();
+                dialog.show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
+
     }
+
 
 }

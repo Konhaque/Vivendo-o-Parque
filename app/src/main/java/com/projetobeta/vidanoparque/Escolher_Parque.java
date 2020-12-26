@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.projetobeta.vidanoparque.generalfunctions.Fullscreen;
 import com.projetobeta.vidanoparque.generalfunctions.SlidePager;
-import com.projetobeta.vidanoparque.parques.Lagoa_Abaete;
 import com.projetobeta.vidanoparque.parques.Parque_Pituacu;
 import com.projetobeta.vidanoparque.parques.Texto_Introducao;
 

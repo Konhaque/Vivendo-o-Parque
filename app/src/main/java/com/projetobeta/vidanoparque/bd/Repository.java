@@ -85,6 +85,7 @@ public class Repository {
         daoUtil.getConexaoDataBase().execSQL(stringBuilder.toString());
     }
 
+
     public void salvarPerfil(Usuario usuario){
         daoUtil.getConexaoDataBase().insert("TB_PERFIL",null,insertPerfil(usuario));
     }

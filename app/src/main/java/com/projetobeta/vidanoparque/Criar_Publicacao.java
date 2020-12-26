@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.app.Dialog;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -106,50 +107,75 @@ public class Criar_Publicacao extends AppCompatActivity {
         publicar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Publicacao");
-                final String id = databaseReference.push().getKey();
-                publicacao.setId_usuario(new Repository(Criar_Publicacao.this).getIdUsuario());
-                publicacao.setTexto(texto.getText().toString());
-                publicacao.setFtPerfil(usuario.getFoto_perfil());
-                publicacao.setNome(usuario.getNome());
-                AlertDialog.Builder builder = new AlertDialog.Builder(Criar_Publicacao.this);
-                LayoutInflater inflater = getLayoutInflater();
-                builder.setView(inflater.inflate(R.layout.activity_main, null));
-                builder.setCancelable(true);
-                dialog = builder.create();
-                dialog.show();
-                if (publicacao.getMidia() != null) {
-                    final StorageReference storageReference = FirebaseStorage.getInstance().getReference("Publicacao").child(id);
-                    storageReference.putFile(Uri.parse(publicacao.getMidia())).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                verificarPublicacoa();
+            }
+        });
+    }
+
+    private void verificarPublicacoa(){
+        if(publicacao.getMidia() == null && texto.getText().toString().length() == 0) erro();
+        else publicar();
+    }
+
+    private void publicar(){
+        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Publicacao");
+        final String id = databaseReference.push().getKey();
+        publicacao.setId_usuario(new Repository(Criar_Publicacao.this).getIdUsuario());
+        publicacao.setTexto(texto.getText().toString());
+        publicacao.setFtPerfil(usuario.getFoto_perfil());
+        publicacao.setNome(usuario.getNome());
+        AlertDialog.Builder builder = new AlertDialog.Builder(Criar_Publicacao.this);
+        LayoutInflater inflater = getLayoutInflater();
+        builder.setView(inflater.inflate(R.layout.activity_main, null));
+        builder.setCancelable(true);
+        dialog = builder.create();
+        dialog.show();
+        if (publicacao.getMidia() != null) {
+            final StorageReference storageReference = FirebaseStorage.getInstance().getReference("Publicacao").child(id);
+            storageReference.putFile(Uri.parse(publicacao.getMidia())).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        public void onSuccess(Uri uri) {
+                            publicacao.setMidia(uri.toString());
+                            databaseReference.child(id).setValue(publicacao).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
-                                public void onSuccess(Uri uri) {
-                                    publicacao.setMidia(uri.toString());
-                                    databaseReference.child(id).setValue(publicacao).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Intent intent = new Intent(Criar_Publicacao.this,Funcionalidades.class);
-                                            intent.putExtra("pub","pub");
-                                            startActivity(intent);
-                                        }
-                                    });
+                                public void onSuccess(Void aVoid) {
+                                    Intent intent = new Intent(Criar_Publicacao.this,Funcionalidades.class);
+                                    intent.putExtra("pub","pub");
+                                    startActivity(intent);
                                 }
                             });
                         }
                     });
-                }else{
-                    databaseReference.child(id).setValue(publicacao).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Intent intent = new Intent(Criar_Publicacao.this,Funcionalidades.class);
-                            intent.putExtra("pub","pub");
-                            startActivity(intent);
-                        }
-                    });
                 }
+            });
+        }else{
+            databaseReference.child(id).setValue(publicacao).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Intent intent = new Intent(Criar_Publicacao.this,Funcionalidades.class);
+                    intent.putExtra("pub","pub");
+                    startActivity(intent);
+                }
+            });
+        }
+    }
+
+    private void erro(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Algo deu Errado :(");
+        builder.setMessage("Você não pode fazer uma publicação vazia. Adicione um texto, uma imagem, um vídeo");
+        builder.setNeutralButton("Ok!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
             }
         });
+        dialog = builder.create();
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnim;
+        dialog.show();
     }
+
 }

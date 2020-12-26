@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#000"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/logo"
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="30dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vivendo o Parque"
+                android:textColor="#fff"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@id/logo"
+                android:textSize="18dp"
+                android:fontFamily="serif"/>
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/parque"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Parque de Pituaçu"
+        android:gravity="center"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="20dp"
+        android:textSize="25dp"
+        android:fontFamily="serif"
+        android:textStyle="bold"
+        android:textColor="#0b4503"/>
+
+    <TextView
+        android:id="@+id/lbl_inicio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bem-vindo"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:textSize="20dp"
+        android:textColor="#446d3d"
+        android:textStyle="bold"
+        android:fontFamily="casual"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vpage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:id="@+id/botoes"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="56dp"/>
+    </RelativeLayout>
+</LinearLayout>
+
+

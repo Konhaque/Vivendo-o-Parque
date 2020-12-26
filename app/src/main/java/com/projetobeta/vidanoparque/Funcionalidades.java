@@ -20,6 +20,7 @@ import com.projetobeta.vidanoparque.funcionalidades.Inicio;
 import com.projetobeta.vidanoparque.funcionalidades.Perfil;
 import com.projetobeta.vidanoparque.funcionalidades.Quiz;
 import com.projetobeta.vidanoparque.funcionalidades.Rede_Social;
+import com.projetobeta.vidanoparque.funcionalidades.opcoesMenu.Inicio2;
 import com.projetobeta.vidanoparque.generalfunctions.AbreTela;
 import com.projetobeta.vidanoparque.generalfunctions.Fullscreen;
 import com.projetobeta.vidanoparque.generalfunctions.SharedPrefs;
@@ -30,6 +31,7 @@ import java.util.List;
 public class Funcionalidades extends AppCompatActivity {
     public static final int CODIGO_PERMISSOES_REQUERIDAS = 1;
     private Intent intent;
+    private int telaAnterior;
     private BottomNavigationView menu;
     private BottomNavigationView.OnNavigationItemSelectedListener itemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -37,17 +39,21 @@ public class Funcionalidades extends AppCompatActivity {
             switch (item.getItemId()){
                 case R.id.inicio:
                     new AbreTela(getSupportFragmentManager(),new Inicio(),R.id.set_Tela);
+                    telaAnterior = menu.getSelectedItemId();
                     return true;
                 case R.id.quiz:
                     if(new SharedPrefs().getSharedPrefs(Funcionalidades.this,"VivendoParque","Jogou_Quiz") != null)
                         new AbreTela(getSupportFragmentManager(),new Fim_de_Jogo(),R.id.set_Tela);
                     else new AbreTela(getSupportFragmentManager(),new Quiz(),R.id.set_Tela);
+                    telaAnterior = menu.getSelectedItemId();
                     return true;
                 case R.id.rede_social:
                     new AbreTela(getSupportFragmentManager(),new Rede_Social(),R.id.set_Tela);
+                    telaAnterior = menu.getSelectedItemId();
                     return true;
                 case R.id.perfil:
                     new AbreTela(getSupportFragmentManager(),new Perfil(),R.id.set_Tela);
+                    telaAnterior = menu.getSelectedItemId();
                     return true;
             }
             return false;
@@ -61,6 +67,12 @@ public class Funcionalidades extends AppCompatActivity {
         setContentView(R.layout.activity_funcionalidades);
         iniciaObjetos();
         verificarPermissoes();
+    }
+
+    @Override
+    public void onBackPressed() {
+        menu.setSelectedItemId(telaAnterior);
+        //super.onBackPressed();
     }
 
     /*private void abretela(Fragment fragment){

@@ -24,12 +24,14 @@ public class Sobre extends Fragment {
        return inflater.inflate(R.layout.sobre_parque,container,false);
     }
 
+
     @Override
     public void onStart() {
         iniciarObjetos();
         setToolbar();
         super.onStart();
     }
+
 
     private void iniciarObjetos(){
         toolbar = (Toolbar) getActivity().findViewById(R.id.tb_sobre);

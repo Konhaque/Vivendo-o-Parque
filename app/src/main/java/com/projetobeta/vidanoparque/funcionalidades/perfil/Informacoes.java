@@ -53,7 +53,7 @@ public class Informacoes extends Fragment {
         profissao = (TextView) getActivity().findViewById(R.id.txtprofissao);
         formacao = (TextView) getActivity().findViewById(R.id.txtescolaridade);
         endereco = (TextView) getActivity().findViewById(R.id.txtendereco);
-        email = (TextView) getActivity().findViewById(R.id.email);
+        email = (TextView) getActivity().findViewById(R.id.txtemail);
         editEndereco = (EditText) getActivity().findViewById(R.id.editendereco);
         editProfissao = (EditText) getActivity().findViewById(R.id.editprofissao);
         editFormacao = (EditText) getActivity().findViewById(R.id.editescolaridade);
